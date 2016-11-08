@@ -104,6 +104,9 @@ class ReportGenerator {
       }
       return number;
     });
+    
+    // Is a value is boolean?
+    Handlebars.registerHelper('is-bool', (value) => (typeof value === 'boolean'));
   }
 
   /**

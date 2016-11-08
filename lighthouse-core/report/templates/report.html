@@ -97,18 +97,18 @@ limitations under the License.
 
             <ul class="subitems">
               {{#each aggregation.subItems as |subItem| }}
-                <li class="subitem {{#if subItem.comingSoon}}coming-soon{{/if}}">
+                <li class="subitem {{#if subItem.comingSoon}}--coming-soon{{/if}}">
 
-                  {{#unless ../../scored }}
-                    <span class="subitem-category">{{ subItem.category }}:</span>
-                  {{/unless}}
-
-                  <p class="test__desc">
+                  <p class="subitem__desc">
+                    {{#unless ../../scored }}
+                      <strong class="subitem__category">{{ subItem.category }}:</strong>
+                    {{/unless}}
+                    
                     {{ subItem.description }}
 
-                    {{#if subItem.displayValue }}
-                      <strong class="subitem-raw-value">({{ subItem.displayValue }})&nbsp;</strong>
-                    {{/if }}
+                    {{~#if subItem.displayValue~}}
+                      <strong class="subitem__raw-value">: {{ subItem.displayValue }}</strong>
+                    {{/if}}
 
                     {{#if subItem.helpText }}
                       <input type="checkbox" class="test__help-toggle">
@@ -120,13 +120,9 @@ limitations under the License.
                     {{/if}}
 
                     {{#if subItem.comingSoon}}
-                      <span class="coming-soon-tease"(Coming soon)</span>
+                      <small class="subitem__tease">(Coming soon)</small>
                     {{/if}}
                   </p>
-
-                  <div class="test-result">
-                    <span class="test-result__fail">Fail</span>
-                  </div>
 
                   {{#if subItem.helpText }}
                     <div class="test__help" {{showHelpText subItem.score}}>
@@ -134,12 +130,26 @@ limitations under the License.
                     </div>
                   {{/if}}
 
-                  <span class="test-result__points --{{ getItemRating subItem.score }}">
-                    {{{ getItemValue subItem.score }}}
-                  </span>
+                  <div class="subitem-result">
+                    {{#if subItem.comingSoon}}
+                          <span class="subitem-result__unknown">N/A</span>
+                    {{else}}
+                      {{#if (is-bool subItem.score)}}
+                        {{#if subItem.score}}
+                          <span class="subitem-result__good">Pass</span>
+                        {{else}}
+                          <span class="subitem-result__poor">Fail</span>
+                        {{/if}}
+                      {{else}}
+                        <span class="subitem-result__points --{{ getItemRating subItem.score }}">
+                          {{{ getItemValue subItem.score }}}
+                        </span>
+                      {{/if}}
+                    {{/if}}
+                  </div>
 
                   {{#if subItem.extendedInfo.value}}
-                    <div class="subitem-extended-info">{{> (lookup . 'name') subItem.extendedInfo.value }}</div>
+                    {{> (lookup . 'name') subItem.extendedInfo.value }}
                   {{/if}}
                 </li>
               {{/each}}
@@ -152,29 +162,44 @@ limitations under the License.
         <div class="js-report-by-technology" hidden>
            {{#each ../auditsByCategory }}
             <section class="section2">
-              <header class="header2">{{ @key }}</header>
+              <header class="header2"><h2>{{ @key }}</h2></header>
 
-              <ul class="report-section__individual-results">
+              <ul class="subitems">
                 {{#each this as |subItem| }}
-                  <li class="report-section__item {{#if subItem.comingSoon}}coming-soon{{/if}}">
-                    <div class="report-section__item-details">
-                      <span class="report-section__item-description">
-                        {{ subItem.description }}
-                        {{#if subItem.optimalValue }}
-                          (target: {{ subItem.optimalValue }})
-                        {{/if}}
-                        {{#if subItem.comingSoon}}
-                        (Coming soon)
-                        {{/if}}
-                      </span>
-                      {{#if subItem.rawValue }}
-                      <span class="report-section__item-raw-value">({{ subItem.rawValue }})&nbsp;</span>
+                  <li class="subitem {{#if subItem.comingSoon}}--coming-soon{{/if}}">
+                    <div class="subitem__desc">
+                      {{ subItem.description }}
+                      {{~#if subItem.rawValue~}}
+                        : <strong class="subitem__raw-value">{{ subItem.rawValue }}</strong>
                       {{/if }}
-                      <span class="report-section__item-value report-section__item-value--{{ getItemRating subItem.value }}">{{{ getItemValue subItem.value }}}</span>
+                      {{#if subItem.optimalValue }}
+                        (target: {{ subItem.optimalValue }})
+                      {{/if}}
+                      {{#if subItem.comingSoon}}
+                        (Coming soon)
+                      {{/if}}
+                    </div>
+                    
+                    <div class="subitem-result">
+                      {{#if subItem.comingSoon}}
+                            <span class="subitem-result__unknown">N/A</span>
+                      {{else}}
+                        {{#if (is-bool subItem.score)}}
+                          {{#if subItem.score}}
+                            <span class="subitem-result__good">Pass</span>
+                          {{else}}
+                            <span class="subitem-result__poor">Fail</span>
+                          {{/if}}
+                        {{else}}
+                          <span class="subitem-result__points --{{ getItemRating subItem.score }}">
+                            {{{ getItemValue subItem.score }}}
+                          </span>
+                        {{/if}}
+                      {{/if}}
                     </div>
 
                     {{#if subItem.extendedInfo.value}}
-                      <div class="report-section__item-extended-info">{{> (lookup . 'name') subItem.extendedInfo.value }}</div>
+                      {{> (lookup . 'name') subItem.extendedInfo.value }}
                     {{/if}}
                   </li>
                 {{/each}}
