@@ -18,7 +18,6 @@
   box-sizing: border-box;
 }
 
-
 span, div, p, section, header, h1, h2, li, ul {
   margin: 0;
   padding: 0;
@@ -671,9 +670,6 @@ body {
   vertical-align: middle;
   margin-left: .5em;
   outline: 0;
-  /*
-  opacity: 0;
-  */
 }
 
 .subitem__help-toggle::after {
@@ -683,7 +679,8 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  -webkit-mask: 1px 1px / 12px 12px no-repeat url(help_2x.png);
+  -webkit-mask: 1px 1px / 12px 12px no-repeat;
+  -webkit-mask-image: url('data:image/svg+xml;utf8,<svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><title>help</title><path d="M5.216 7.457c0-.237.011-.452.033-.645.021-.194.058-.372.11-.535a1.918 1.918 0 0 1 .55-.847 3.65 3.65 0 0 0 .545-.597c.133-.19.2-.398.2-.623 0-.28-.053-.485-.16-.616-.107-.13-.268-.196-.482-.196a.583.583 0 0 0-.457.207.834.834 0 0 0-.15.271c-.04.111-.062.244-.065.398H3.67c.003-.401.067-.745.19-1.032a1.96 1.96 0 0 1 .5-.707c.208-.185.455-.32.738-.406A3.13 3.13 0 0 1 6.012 2c.359 0 .682.046.968.137.287.091.53.227.729.406.2.18.352.401.457.667.105.265.158.571.158.919 0 .233-.03.44-.091.624-.061.182-.145.353-.252.51-.107.158-.233.311-.378.46-.145.149-.3.306-.465.47a2.084 2.084 0 0 0-.24.275c-.063.09-.115.183-.152.282a1.57 1.57 0 0 0-.084.323 2.966 2.966 0 0 0-.033.384H5.216zm-.202 1.634a.96.96 0 0 1 .067-.36.828.828 0 0 1 .19-.287.913.913 0 0 1 .291-.191.969.969 0 0 1 .376-.07c.138 0 .263.023.375.07.112.046.21.11.292.19.082.081.146.177.19.288a.96.96 0 0 1 .067.36.96.96 0 0 1-.067.36.828.828 0 0 1-.19.288.913.913 0 0 1-.292.191.969.969 0 0 1-.375.07.969.969 0 0 1-.376-.07.913.913 0 0 1-.291-.19.828.828 0 0 1-.19-.288.96.96 0 0 1-.067-.36z" fill="#000" fill-rule="evenodd"/></svg>');
   background-color: var(--secondary-text-color);
   cursor: pointer;
 }
@@ -710,9 +707,10 @@ body {
   font-size: var(--body-font-size);
   line-height: var(--body-line-height);
   margin-top: calc(var(--body-line-height) / 2);
+  margin-left: var(--subitem-indent);
 }
 
-.subitem.--show-help .test__help {
+.subitem.--show-help .subitem__help {
   display: block;
 }
 

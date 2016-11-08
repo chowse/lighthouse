@@ -21,6 +21,9 @@ limitations under the License.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Lighthouse report: {{ url }}</title>
+  {{!--
+  <link rel="stylesheet" href="lighthouse-core/report/styles/report.css">
+  --}}
   <style>
   {{{ css }}}
   </style>
@@ -106,13 +109,8 @@ limitations under the License.
                     
                     {{ subItem.description }}
 
-                    {{~#if subItem.displayValue~}}
+                    {{~#if (and subItem.displayValue (not (is-bool subItem.displayValue))) ~}}
                       <strong class="subitem__raw-value">: {{ subItem.displayValue }}</strong>
-                    {{/if}}
-
-                    {{#if subItem.helpText }}
-                      <input type="checkbox" class="test__help-toggle">
-                      <span class="subitem-help-toggle">?</span>
                     {{/if}}
 
                     {{#if subItem.optimalValue }}
@@ -122,10 +120,14 @@ limitations under the License.
                     {{#if subItem.comingSoon}}
                       <small class="subitem__tease">(Coming soon)</small>
                     {{/if}}
+
+                    {{#if subItem.helpText }}
+                      <input type="checkbox" class="subitem__help-toggle" title="Toggle help text">
+                    {{/if}}
                   </p>
 
                   {{#if subItem.helpText }}
-                    <div class="test__help" {{showHelpText subItem.score}}>
+                    <div class="subitem__help" {{showHelpText subItem.score}}>
                       {{{ subItem.helpText }}}
                     </div>
                   {{/if}}
@@ -159,7 +161,7 @@ limitations under the License.
         </div>
 
         {{#if this.categorizable}}
-        <div class="js-report-by-technology" hidden>
+        <div class="js-report-by-technology">
            {{#each ../auditsByCategory }}
             <section class="section2">
               <header class="header2"><h2>{{ @key }}</h2></header>
@@ -169,7 +171,7 @@ limitations under the License.
                   <li class="subitem {{#if subItem.comingSoon}}--coming-soon{{/if}}">
                     <div class="subitem__desc">
                       {{ subItem.description }}
-                      {{~#if subItem.rawValue~}}
+                      {{~#if (and subItem.rawValue (not (is-bool subItem.rawValue)))~}}
                         : <strong class="subitem__raw-value">{{ subItem.rawValue }}</strong>
                       {{/if }}
                       {{#if subItem.optimalValue }}

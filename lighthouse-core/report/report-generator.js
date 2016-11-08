@@ -107,6 +107,19 @@ class ReportGenerator {
     
     // Is a value is boolean?
     Handlebars.registerHelper('is-bool', (value) => (typeof value === 'boolean'));
+    
+    Handlebars.registerHelper('not', (value) => !value);
+    
+    Handlebars.registerHelper('and', (...args) => {
+      const options = args.pop();
+      let arg;
+      for (arg of args) {
+        if (!arg) {
+          break;
+        }
+      }
+      return arg;
+    })
   }
 
   /**
