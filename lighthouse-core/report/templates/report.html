@@ -34,18 +34,6 @@ limitations under the License.
         <div class="report-body__url">Results for: <a href="{{ url }}" target="_blank">{{ url }}</a></div>
         <div class="report-body__url">Generated on: {{generatedTime}}</div>
       </div>
-      <div class="toggle">
-        <h1 class="toggle__title">View:</h1>
-
-        <label class="toggle__label" for="user-feature" aria-label="User feature">
-          <input name="view-toggle" class="js-toggle-view toggle-view" id="user-feature" type="checkbox" value="toggle">
-          <div role="presentation" class="toggle__display" data-on="Technology" data-off="User feature">
-            <div aria-hidden class="toggle__slider"></div>
-          </div>
-          <div role="presentation" class="toggle__focus-ring"></div>
-        </label>
-      </div>
-
       <button class="print js-print"></button>
     </div>
     <div class="report-body__content">
@@ -67,13 +55,13 @@ limitations under the License.
         </div>
       </div>
 
-      <div class="aggregations">
+      <div>
       {{#each aggregations}}
-      <section class="js-breakdown section1">
-        <header class="header1" id="{{nameToLink this.name}}">
+      <section class="js-breakdown aggregations">
+        <header class="aggregations__header" id="{{nameToLink this.name}}">
           <h1>{{ this.name }}</h1>
         </header>
-        <p class="section1__desc">{{ this.description }}</p>
+        <p class="aggregations__desc">{{ this.description }}</p>
         {{#if this.scored}}
         <div class="section-result">
           <span class="section-result__score --{{ getTotalScoreRating this }}">
@@ -86,16 +74,16 @@ limitations under the License.
 
         <div class="js-report-by-user-feature">
           {{#each this.score as |aggregation|}}
-            <section class="section2">
+            <section class="aggregation">
 
             {{#if aggregation.name }}
-            <header class="header2">
+            <header class="aggregation__header">
               <h2>{{ aggregation.name }}</h2>
             </header>
             {{/if}}
 
             {{#if aggregation.description }}
-            <p class="section2__desc">{{{ aggregation.description }}}</p>
+            <p class="aggregation__desc">{{{ aggregation.description }}}</p>
             {{/if}}
 
             <ul class="subitems">
@@ -165,57 +153,6 @@ limitations under the License.
           </section>
           {{/each}}
         </div>
-
-        {{#if this.categorizable}}
-        <div class="js-report-by-technology" hidden>
-           {{#each ../auditsByCategory }}
-            <section class="section2">
-              <header class="header2"><h2>{{ @key }}</h2></header>
-
-              <ul class="subitems">
-                {{#each this as |subItem| }}
-                  <li class="subitem {{#if subItem.comingSoon}}--coming-soon{{/if}}">
-                    <div class="subitem__desc">
-                      {{ subItem.description }}
-                      {{~#if (and subItem.rawValue (not (is-bool subItem.rawValue)))~}}
-                        : <strong class="subitem__raw-value">{{ subItem.rawValue }}</strong>
-                      {{/if }}
-                      {{#if subItem.optimalValue }}
-                        (target: {{ subItem.optimalValue }})
-                      {{/if}}
-                      {{#if subItem.comingSoon}}
-                        (Coming soon)
-                      {{/if}}
-                    </div>
-                    
-                    <div class="subitem-result">
-                      {{#if subItem.comingSoon}}
-                            <span class="subitem-result__unknown">N/A</span>
-                      {{else}}
-                        {{#if (is-bool subItem.score)}}
-                          {{#if subItem.score}}
-                            <span class="subitem-result__good">Pass</span>
-                          {{else}}
-                            <span class="subitem-result__poor">Fail</span>
-                          {{/if}}
-                        {{else}}
-                          <span class="subitem-result__points --{{ getItemRating subItem.score }}">
-                            {{{ getItemValue subItem.score }}}
-                          </span>
-                        {{/if}}
-                      {{/if}}
-                    </div>
-
-                    {{#if subItem.extendedInfo.value}}
-                      {{> (lookup . 'name') subItem.extendedInfo.value }}
-                    {{/if}}
-                  </li>
-                {{/each}}
-              </ul>
-            </section>
-          {{/each}}
-        </div>
-        {{/if}}
       </section>
       {{/each}}
       </div>
