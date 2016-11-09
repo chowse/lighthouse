@@ -93,9 +93,7 @@ class ReportGenerator {
     // for color styling.
     Handlebars.registerHelper('getItemRating', getItemRating);
 
-    Handlebars.registerHelper('showHelpText', value => {
-      return getItemRating(value) === RATINGS.GOOD.label ? 'hidden' : '';
-    });
+    Handlebars.registerHelper('shouldShowHelpText', value => (getItemRating(value) !== RATINGS.GOOD.label));
 
     // Convert numbers to fixed point decimals
     Handlebars.registerHelper('decimal', number => {

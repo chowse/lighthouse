@@ -851,6 +851,14 @@ body {
   display: block;
 }
 
+.subitem__debug {
+  font-size: var(--body-font-size);
+  line-height: var(--body-line-height);
+  margin-top: calc(var(--body-line-height) / 2);
+  margin-left: var(--subitem-indent);
+  color: var(--poor-color);
+}
+
 
 
 
