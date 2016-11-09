@@ -16,7 +16,7 @@ limitations under the License.
 
 -->
 <!doctype html>
-<html>
+<html data-report-context="{{reportContext}}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
@@ -33,6 +33,10 @@ limitations under the License.
 
   <section class="report-body">
     <div class="report-body__header">
+      <div class="report-body__metadata">
+        <div class="report-body__url">Results for: <a href="{{ url }}" target="_blank">{{ url }}</a></div>
+        <div class="report-body__url">Generated on: {{generatedTime}}</div>
+      </div>
       <div class="toggle">
         <h1 class="toggle__title">View:</h1>
 
@@ -66,10 +70,9 @@ limitations under the License.
         </div>
       </div>
 
-      <div class="report-body__url">Results for <a href="{{ url }}" target="_blank">{{ url }}</a></div>
-
+      <div class="aggregations">
       {{#each aggregations}}
-      <div class="js-breakdown section1">
+      <section class="js-breakdown section1">
         <header class="header1" id="{{nameToLink this.name}}">
           <h1>{{ this.name }}</h1>
         </header>
@@ -210,8 +213,9 @@ limitations under the License.
           {{/each}}
         </div>
         {{/if}}
-      </div>
+      </section>
       {{/each}}
+      </div>
     </div>
 
     <footer class="footer">
