@@ -104,19 +104,19 @@ class ReportGenerator {
       }
       return number;
     });
-    
+
     // Is a value is boolean?
-    Handlebars.registerHelper('is-bool', (value) => (typeof value === 'boolean'));
-    
+    Handlebars.registerHelper('is-bool', value => (typeof value === 'boolean'));
+
     // a > b
     Handlebars.registerHelper('gt', (a, b) => (a > b));
-    
+
     // !value
-    Handlebars.registerHelper('not', (value) => !value);
-    
+    Handlebars.registerHelper('not', value => !value);
+
     // arg1 && arg2 && ... && argn
     Handlebars.registerHelper('and', (...args) => {
-      const options = args.pop();
+      args.pop();
       let arg;
       for (arg of args) {
         if (!arg) {
@@ -124,7 +124,7 @@ class ReportGenerator {
         }
       }
       return arg;
-    })
+    });
   }
 
   /**
