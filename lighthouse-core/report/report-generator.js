@@ -114,10 +114,10 @@ class ReportGenerator {
     Handlebars.registerHelper('not', value => !value);
 
     // arg1 && arg2 && ... && argn
-    Handlebars.registerHelper('and', (...args) => {
-      args.pop();
-      let arg;
-      for (arg of args) {
+    Handlebars.registerHelper('and', () => {
+      let arg = false;
+      for (let i = 0, n = arguments.length-1; i < n; i++) {
+        arg = arguments[i];
         if (!arg) {
           break;
         }
