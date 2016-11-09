@@ -93,7 +93,8 @@ class ReportGenerator {
     // for color styling.
     Handlebars.registerHelper('getItemRating', getItemRating);
 
-    Handlebars.registerHelper('shouldShowHelpText', value => (getItemRating(value) !== RATINGS.GOOD.label));
+    Handlebars.registerHelper('shouldShowHelpText',
+      value => (getItemRating(value) !== RATINGS.GOOD.label));
 
     // Convert numbers to fixed point decimals
     Handlebars.registerHelper('decimal', number => {
@@ -103,7 +104,7 @@ class ReportGenerator {
       return number;
     });
 
-    // Is a value is boolean?
+    // value is boolean?
     Handlebars.registerHelper('is-bool', value => (typeof value === 'boolean'));
 
     // a > b
